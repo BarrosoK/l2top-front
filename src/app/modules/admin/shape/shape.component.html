@@ -1,0 +1,100 @@
+<mdb-card class="card-order">
+  <mdb-card-body fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="prospect-body" fxLayoutAlign="center center" fxLayout="column">
+      <input
+        style="display: none"
+        type="file" (change)="onFileChangedCsv($event)"
+        #fileInput>
+      <div>{{selectedFile?.name}}</div>
+      <button (click)="fileInput.click()" type="button" class="btn btn-outline-primary waves-effect"><i
+        class="fas fa-file-upload pr-2" aria-hidden="true"></i>Select File
+      </button>
+      <button (click)="findShape()" type="button" class="btn btn-outline-primary waves-effect"><i
+        class="fas fa-file-sync pr-2" aria-hidden="true"></i>Sync
+      </button>
+    </div>
+  </mdb-card-body>
+</mdb-card>
+<mat-form-field class="example-full-width">
+  <mat-label>Id</mat-label>
+  <input matInput placeholder="24253" [(ngModel)]="search.id">
+</mat-form-field>
+<div style="max-height: 500px; overflow: auto">
+
+  <div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+  </div>
+
+  <mat-accordion multi #maskList>
+    <mat-expansion-panel *ngFor="let row of results | filterById : search.id" [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{row.id}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{row.sku}} ({{row.total}} area)
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      Bojour
+
+      <mat-accordion multi>
+        <mat-expansion-panel *ngFor="let in of counter(row.total) ;let i = index" (opened)="callApi(row['area'+(i + 1)+'-image'], row['area'+(i + 1)+'-mask'], row)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{i + 1}}
+            </mat-panel-title>
+            <mat-panel-description>
+              Area {{i + 1}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <img [src]="row['area'+(i + 1)+'-image']" width="200" height="200">
+          <img [src]="row['area'+(i + 1)+'-mask']" width="200" height="200">
+
+          <button *ngIf="row.svg" mat-button (click)="openDialog(row['area'+(i + 1)+'-image'], row.svg)">Show mask</button>
+
+
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+<!--
+
+<div fxLayout="row" style="width: 100%;height: 500px">
+
+<mdb-card  class="card-order" style="width: 50%" fxLayoutAlign="center end">
+  <mdb-card-body fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="prospect-body" fxLayoutAlign="center center" fxLayout="column">
+      <input
+        style="display: none"
+        type="file" (change)="onFileChanged($event, 1)"
+        #fileInput>
+      <img [src]="imageOriginal" *ngIf="imageOriginal" style="height: 400px; width:400px">
+
+      <div>{{imageOriginal?.name}}</div>
+      <button (click)="fileInput.click()" type="button" class="btn btn-outline-primary waves-effect"><i class="fas fa-file-upload pr-2" aria-hidden="true"></i>Select File</button>
+    </div>
+  </mdb-card-body>
+</mdb-card>
+
+
+  <mdb-card  class="card-order" style="width: 50%" fxLayoutAlign="center end">
+    <mdb-card-body fxLayout="column" fxLayoutAlign="space-between center">
+      <div class="prospect-body" fxLayoutAlign="center center" fxLayout="column">
+        <input
+          style="display: none"
+          type="file" (change)="onFileChanged($event, 2)"
+          #fileInput>
+        <img [src]="imageMask" *ngIf="imageMask" style="height: 400px; width:400px">
+        <div>{{imageMask?.name}}</div>
+        <button (click)="fileInput.click()" type="button" class="btn btn-outline-primary waves-effect"><i class="fas fa-file-upload pr-2" aria-hidden="true"></i>Select File</button>
+      </div>
+    </mdb-card-body>
+  </mdb-card>
+
+
+</div>
+-->

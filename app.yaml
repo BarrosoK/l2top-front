@@ -1,0 +1,9 @@
+# [START runtime]
+runtime: nodejs12
+handlers:
+  - url: /
+    static_files: dist/l2top/index.html
+    upload: dist/l2top/index.html
+  - url: /
+    static_dir: dist/l2top
+# [END runtime]

@@ -1,0 +1,80 @@
+<div class="body-order" fxLayoutAlign="space-evenly center" fxLayout="row">
+
+  <div fxLayout="column">
+    <mdb-card *ngIf="!fetching; else fetchCard" class="card-order">
+      <mdb-card-body fxLayout="column" fxLayoutAlign="space-between center">
+        <label for="dt" class="col-form-label card-title">Start Date:</label>
+        <input mdbInput class="form-control" id="dt" [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+               (dateTimeChange)="changeDate($event.value)">
+        <owl-date-time #dt></owl-date-time>
+        <mat-checkbox [(ngModel)]="onlyNew">Only new</mat-checkbox>
+        <button mdbBtn type="button" color="primary" rounded="true" mdbWavesEffect (click)="sync()">Sync</button>
+
+      </mdb-card-body>
+    </mdb-card>
+    <ng-template #fetchCard>
+      <mdb-card class="card-order">
+        <mdb-card-body fxLayout="column" fxLayoutAlign="space-between center">
+          <div style="width: 100%" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div>{{orderDone}} / {{orderAmount}}</div>
+            <mat-progress-bar mode="determinate" [value]="(orderDone / orderAmount) * 100"></mat-progress-bar>
+          </div>
+          <mat-divider></mat-divider>
+          <mat-spinner></mat-spinner>
+        </mdb-card-body>
+      </mdb-card>
+    </ng-template>
+    <mdb-card class="card-order-result" *ngIf="result">
+      <mdb-card-body fxLayout="column" fxLayoutAlign="center center">
+        <div>Updated: {{result.updated}}</div>
+        <div>Created: {{result.created}}</div>
+        <div>Errors: {{result.error}}</div>
+      </mdb-card-body>
+    </mdb-card>
+    <mdb-card class="card-order-result" *ngIf="lastExecution">
+      <mdb-card-body fxLayout="column" fxLayoutAlign="center center">
+        <div><strong>Last Execution's Date</strong></div>
+        <div>{{lastExecution.date}}</div>
+        <div><strong>Last Execution's Ip</strong></div>
+        <div>{{lastExecution.ip}}</div>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+  <div class="card-order-log" cdkDrag>
+    <!--Accordion wrapper-->
+    <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+      <!-- Accordion card -->
+      <div class="card">
+
+        <!-- Card header -->
+        <div class="card-header" role="tab" id="headingOne1">
+          <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+             aria-controls="collapseOne1">
+            <h5 class="mb-0">
+              Logs<i class="fas fa-angle-down rotate-icon"></i>
+            </h5>
+          </a>
+        </div>
+
+        <!-- Card body -->
+        <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+             data-parent="#accordionEx">
+          <div class="card-body card-log">
+            <div *ngFor="let log of logs">
+              {{log}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- Accordion card -->
+
+    </div>
+    <!-- Accordion wrapper -->
+  </div>
+
+
+</div>
+
+

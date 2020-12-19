@@ -1,0 +1,54 @@
+@import 'src/app/colors.scss';
+
+.auth-body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+
+.welcome-logo {
+  @media screen and (max-width: 640px) {
+    width: 200px;
+  }
+}
+
+
+.panel-left {
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    height: 50%;
+  }
+}
+
+.panel-right {
+  width: 50%;
+  height: 100%;
+  background-color: $panda-purple;
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+}
+.login-input {
+  width: 100%;
+}
+
+.login-form {
+  width: 50%
+}
+
+.login-button {
+  display: flex;
+  place-content: center;
+  align-items: center;
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+  }
+}
