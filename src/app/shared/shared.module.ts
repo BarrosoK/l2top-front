@@ -8,10 +8,11 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ServerCardComponent } from './components/server-card/server-card.component';
 
 
 @NgModule({
-  declarations: [NavigationComponent],
+  declarations: [NavigationComponent, ServerCardComponent],
   providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}],
   imports: [
     CommonModule,
@@ -23,16 +24,17 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     OwlNativeDateTimeModule,
     MatProgressSpinnerModule
   ],
-  exports: [
-    CommonModule,
-    MaterialModule,
-    NavigationComponent,
-    FormsModule,
-    MatProgressSpinnerModule,
-    FlexLayoutModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-  ]
+    exports: [
+        CommonModule,
+        MaterialModule,
+        NavigationComponent,
+        FormsModule,
+        MatProgressSpinnerModule,
+        FlexLayoutModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        ServerCardComponent,
+    ]
 })
 export class SharedModule {
 }
