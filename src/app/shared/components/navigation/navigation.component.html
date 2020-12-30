@@ -1,57 +1,101 @@
-<div class="navigation-container full-size">
-  <mat-toolbar color="primary" class="navigation-toolbar" ngClass="logo-back" fxLayoutAlign="space-between center">
-    <button
-      class="header-open-menu menu-button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="drawer.toggle()"
-      style="margin-left:7px; margin-right: 7px;"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>
+<div *ngIf="isHandset$ | async; then mobile else computer"></div>
+<ng-template #mobile>
+    <div class="navigation-container full-size">
+        <mat-toolbar color="primary" class="navigation-toolbar" ngClass="logo-back"
+                     fxLayoutAlign="space-between center">
+            <button
+                    class="header-open-menu menu-button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="drawer.toggle()"
+                    style="margin-left:7px; margin-right: 7px;"
+            >
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>
       <button mat-button [matMenuTriggerFor]="belowMenu">
         <mat-icon class="menu-icon">settings</mat-icon>
       </button>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item class="pointer" *ngIf="(token$ | async) !== undefined"  (click)="disconnect()">Logout</button>
+        <button mat-menu-item class="pointer" *ngIf="(token$ | async) !== undefined"
+                (click)="disconnect()">Logout</button>
       </mat-menu>
     </span>
-  </mat-toolbar>
-  <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer mode="{{(isHandset$ | async) === true ? 'push' : 'side' }}" opened>
-      <div class="sidenav" [@onSideNavChange]="sideNavState ? 'open' : 'close'" fxLayout="column">
-        <div class="sidenav-navigation">
-          <mat-nav-list fxLayout="column" fxLayoutAlign="center center">
-            <div class="welcome" fxLayout="row">
-              <div fxLayout="column" *ngIf="linkText">
-                <div>Bienvenue  <strong>{{ username$ | async }}</strong></div>
-              </div>
+        </mat-toolbar>
+        <mat-sidenav-container class="sidenav-container">
+            <mat-sidenav #drawer mode="{{(isHandset$ | async) === true ? 'push' : 'side' }}" opened>
+                <div class="sidenav" [@onSideNavChange]="sideNavState ? 'open' : 'close'" fxLayout="column">
+                    <div class="sidenav-navigation">
+                        <mat-nav-list fxLayout="column" fxLayoutAlign="center center">
+                            <div class="welcome" fxLayout="row">
+                                <div fxLayout="column" *ngIf="linkText">
+                                    <div>Bienvenue <strong>{{ username$ | async }}</strong></div>
+                                </div>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <a
+                                    class="navigation-item"
+                                    mat-list-item
+                                    *ngFor="let item of menuItems"
+                                    [routerLinkActive]="['is-active']"
+                                    [routerLink]="item.link"
+                                    (click)="clickOnNav()"
+                                    fxLayout="row"
+                                    fxLayoutAlign="start center"
+                            >
+                                <i class="fas {{item.icon}} fa-fw mr-3" aria-hidden="true"></i>
+                                <span [@animateText]="linkText ? 'show' : 'hide'"
+                                      class="menu-text ml-3">{{ item.title  }}</span>
+                            </a>
+                        </mat-nav-list>
+                    </div>
+                    <button type="button" mat-icon-button (click)="onSideNavToggle()" class="toggle-reduce">
+                        <mat-icon aria-label="Side nav toggle icon" *ngIf="sideNavState">keyboard_arrow_left</mat-icon>
+                        <mat-icon aria-label="Side nav toggle icon" *ngIf="!sideNavState">keyboard_arrow_right
+                        </mat-icon>
+                    </button>
+                </div>
+            </mat-sidenav>
+            <mat-sidenav-content class="navigation-content smooth-scroll"
+                                 [@onMainContentChange]="sideNavState ? 'open' : 'close'">
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</ng-template>
+<ng-template #computer>
+    <div class="content">
+        <div class="navigationBar">
+            <div class="header">
+                <img src="../../../../assets/images/logo.gif" class="logo"/>
+                <span class="title">L2 Group</span>
             </div>
-            <mat-divider></mat-divider>
-            <a
-              class="navigation-item"
-              mat-list-item
-              *ngFor="let item of menuItems"
-              [routerLinkActive]="['is-active']"
-              [routerLink]="item.link"
-              (click)="clickOnNav()"
-              fxLayout="row"
-              fxLayoutAlign="start center"
-            >
-              <i class="fas {{item.icon}} fa-fw mr-3" aria-hidden="true"></i>
-              <span [@animateText]="linkText ? 'show' : 'hide'" class="menu-text ml-3">{{ item.title  }}</span>
-            </a>
-          </mat-nav-list>
         </div>
-        <button type="button" mat-icon-button (click)="onSideNavToggle()" class="toggle-reduce">
-          <mat-icon aria-label="Side nav toggle icon" *ngIf="sideNavState">keyboard_arrow_left</mat-icon>
-          <mat-icon aria-label="Side nav toggle icon" *ngIf="!sideNavState">keyboard_arrow_right</mat-icon>
-        </button>
-      </div>
-    </mat-sidenav>
-    <mat-sidenav-content class="navigation-content smooth-scroll" [@onMainContentChange]="sideNavState ? 'open' : 'close'" >
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+        <div class="subNavigationBar">
+            <div class="links">
+                <button mat-button>Home</button>
+                <button mat-button [matMenuTriggerFor]="menu">
+                    Server List
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item [matMenuTriggerFor]="serverVersion">Server List</button>
+                        <button mat-menu-item>Item 2</button>
+                    </mat-menu>
+                    <mat-menu #serverVersion="matMenu">
+                        <button mat-menu-item>Interlude</button>
+                        <button mat-menu-item>Interlude</button>
+                        <button mat-menu-item>Interlude</button>
+                        <button mat-menu-item>Interlude</button>
+                    </mat-menu>
+                </button>
+
+
+                <button mat-button>Add your server</button>
+            </div>
+        </div>
+        <div class="router">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+
+</ng-template>

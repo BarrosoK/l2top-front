@@ -1,38 +1,9 @@
 @import "src/app/colors";
 
-.home-jumbotron {
-  width: 98%;
-  height: 300px;
-  background-color: $panda-purple;
-  background-repeat: no-repeat;
-  background-size: cover;
-  @media screen and (max-width: 640px) {
-    height: 100%;
-  }
-}
-
-.jumbotron-body {
-  color: white;
-}
-
-.jumboton-two {
-  width: 50%;
-  margin: 15px;
-  background: linear-gradient(to bottom, $panda-purple 50%, $panda-pink);
-  @media screen and (max-width: 640px) {
-    width: 95% ;
-    margin: 15px;
-
-  }
-}
-
-.home-news {
+.content {
   display: flex;
-  flex-direction: row;
   width: 100%;
-  @media screen and (max-width: 640px) {
-    margin: 0;
-    width: 100%;
-    flex-direction: column;
-  }
+  height: 100%;
+
+  background-color: white;
 }

@@ -11,14 +11,9 @@
 }
 
 
-.welcome-logo {
-  @media screen and (max-width: 640px) {
-    width: 200px;
-  }
-}
 
 
-.panel-left {
+.panelLeft {
   width: 50%;
   height: 100%;
   background-color: white;
@@ -26,12 +21,19 @@
     width: 100%;
     height: 50%;
   }
+
+  .logo {
+      height: 50%;
+      width: 50%;
+  }
 }
 
 .panel-right {
   width: 50%;
   height: 100%;
-  background-color: $panda-purple;
+  background-color: $dark-red;
+  color: white;
+
   @media screen and (max-width: 640px) {
     width: 100%;
   }
@@ -48,6 +50,11 @@
   display: flex;
   place-content: center;
   align-items: center;
+
+  button {
+    background-color: $red;
+  }
+
   @media screen and (max-width: 640px) {
     flex-direction: column;
   }

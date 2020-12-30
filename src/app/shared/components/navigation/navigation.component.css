@@ -1,3 +1,51 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: #e8e5eb; }
+  .content .navigationBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a21842;
+    height: 50px;
+    width: 70%; }
+    .content .navigationBar .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("../../../../assets/images/logo.gif"); }
+      .content .navigationBar .header .logo {
+        height: 50px;
+        width: 50px; }
+      .content .navigationBar .header .title {
+        font-size: 26px;
+        color: white; }
+  .content .subNavigationBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0;
+    width: 70%;
+    border-top: 40px solid #73102f;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent; }
+    .content .subNavigationBar .links {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%; }
+      .content .subNavigationBar .links button {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 38px;
+        outline: 0; }
+  .content .router {
+    width: 66%;
+    height: 100%;
+    background-color: white; }
+
 .sidenav-container {
   height: calc(100vh - 64px); }
   @media (min-width: 576px) {
