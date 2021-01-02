@@ -21,6 +21,8 @@
                    [ngClass]="{ 'is-invalid':  f.touched && f.errors }"/>
             <div *ngIf=" f.errors" class="invalid-feedback">
                 <div *ngIf="f.errors['required']">{{title}} is required</div>
+                <div *ngIf="f.errors['email']">Email must be a valid email address</div>
+                <ng-content></ng-content>
             </div>
         </form>
     </div>
