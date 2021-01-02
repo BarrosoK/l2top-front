@@ -18,6 +18,7 @@ import {ToastrModule} from 'ngx-toastr';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {JwtInterceptor} from '@app/core/interceptors/jwt.interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import {ServersModule} from "@app/modules/servers/servers.module";
 
 const config: SocketIoConfig = { url: 'http://167.71.54.249:4242', options: {} };
 
@@ -32,6 +33,7 @@ const config: SocketIoConfig = { url: 'http://167.71.54.249:4242', options: {} }
     SharedModule,
     AdminModule,
     AuthModule,
+    ServersModule,
     SocketIoModule.forRoot(config),
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,

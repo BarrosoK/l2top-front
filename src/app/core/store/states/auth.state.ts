@@ -1,59 +1,88 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {Logout, SaveToken} from '../actions/auth.actions';
+import {Login, Logout} from '../actions/auth.actions';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {L2Group} from "@app/types/types";
+import * as moment from "moment";
 
-const helper = new JwtHelperService();
 
 export interface AuthStateModel {
-  token: string;
-  username: string;
+  tokens: L2Group.Tokens;
+  user: L2Group.User;
 }
 
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
-    token: undefined,
-    username: undefined
+    tokens: {
+      access: {
+        token: undefined,
+        expires: undefined,
+      },
+      refresh:{
+        token: undefined,
+        expires: undefined,
+      }
+    },
+    user: {
+      email: undefined,
+      id: undefined,
+      name: undefined,
+      role: undefined,
+    }
   }
 })
 @Injectable()
 export class AuthState {
 
   @Selector()
-  static tokenSelect(state: AuthStateModel) {
-    return state.token;
+  static isLogged(state: AuthStateModel): boolean {
+    return state.tokens.access.token !== undefined && (moment(state.tokens.access.expires) > moment());
   }
 
   @Selector()
-  static usernameSelect(state: AuthStateModel) {
-    return state.username;
+  static tokenSelect(state: AuthStateModel): L2Group.Tokens {
+    return state.tokens;
   }
 
-  @Action(SaveToken)
-  saveToken(ctx: StateContext<AuthStateModel>, action: SaveToken) {
-    const decodedToken = helper.decodeToken(action.token);
-    if (decodedToken.user === null) {
-      return;
-    }
-    console.log('oui');
-    localStorage.setItem('token', action.token);
+  @Selector()
+  static userSelect(state: AuthStateModel): L2Group.User {
+    return state.user;
+  }
+
+
+
+
+  @Action(Login)
+  login(ctx: StateContext<AuthStateModel>, action: Login) {
+    localStorage.setItem('token', JSON.stringify(action.payload.tokens));
     ctx.setState((state) => ({
       ...state,
-      username: decodedToken.user,
-      token: action.token
+      ...action.payload,
     }));
   }
 
   @Action(Logout)
   logout(ctx: StateContext<AuthStateModel>) {
-    console.log('called');
     ctx.setState(state => ({
-      ...state,
-      token : undefined,
-      username: undefined
+      tokens: {
+        access: {
+          token: undefined,
+          expires: undefined,
+        },
+        refresh:{
+          token: undefined,
+          expires: undefined,
+        }
+      },
+      user: {
+        email: undefined,
+        id: undefined,
+        name: undefined,
+        role: undefined,
+      }
     }));
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth');
   }
 
 }

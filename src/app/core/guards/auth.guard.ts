@@ -5,23 +5,24 @@ import {Select, Store} from '@ngxs/store';
 import {AuthState} from '@app/core/store/states/auth.state';
 import {first} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
+import {L2Group} from "@app/types/types";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
 
-  @Select(AuthState.tokenSelect) token$: Observable<string>;
+  @Select(AuthState.isLogged) isLogged$: Observable<boolean>;
 
   constructor(store: Store, private toastr: ToastrService) {
   }
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return new Promise(resolve => {
-      this.token$.pipe(
+      this.isLogged$.pipe(
         first()
-      ).subscribe(token => {
-        if (token === undefined) {
+      ).subscribe(logged => {
+        if (!logged) {
           this.toastr.error(`You're not allowed to see this page`, 'Permission denied');
           resolve(false);
         } else {

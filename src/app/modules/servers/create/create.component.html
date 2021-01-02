@@ -1,0 +1,9 @@
+<form [formGroup]="serverForm" (ngSubmit)="create()">
+
+    <app-input [formGroup]="serverForm" title="name" controlName="name" ></app-input>
+    <app-input [formGroup]="serverForm" title="website" controlName="website" ></app-input>
+    <app-input formGroupName="information" [formGroup]="serverForm" title="description" controlName="description" ></app-input>
+
+    <button mdbBtn type="button" rounded="true" mdbWavesEffect (click)="create()">Add server</button>
+
+</form>

@@ -17,7 +17,7 @@
         <mat-icon class="menu-icon">settings</mat-icon>
       </button>
       <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item class="pointer" *ngIf="(token$ | async) !== undefined"
+        <button mat-menu-item class="pointer" *ngIf="(isLogged$ | async)"
                 (click)="disconnect()">Logout</button>
       </mat-menu>
     </span>
@@ -29,7 +29,7 @@
                         <mat-nav-list fxLayout="column" fxLayoutAlign="center center">
                             <div class="welcome" fxLayout="row">
                                 <div fxLayout="column" *ngIf="linkText">
-                                    <div>Bienvenue <strong>{{ username$ | async }}</strong></div>
+                                    <div>Bienvenue <strong>USERNAME</strong></div>
                                 </div>
                             </div>
                             <mat-divider></mat-divider>
@@ -64,6 +64,7 @@
     </div>
 </ng-template>
 <ng-template #computer>
+
     <div class="content">
         <div class="navigationBar">
             <div class="header">
@@ -84,12 +85,21 @@
                         <button mat-menu-item>Interlude</button>
                         <button mat-menu-item>Interlude</button>
                         <button mat-menu-item>Interlude</button>
-                        <button mat-menu-item>Interlude</button>
                     </mat-menu>
                 </button>
 
+                <button mat-button routerLink="/servers/add">Add your server</button>
 
-                <button mat-button>Add your server</button>
+                <div  *ngIf="(isLogged$ | async); then authed; else visitor"></div>
+
+                <ng-template #authed>
+                    <button mat-button routerLink="/auth/logout">Logout</button>
+                </ng-template>
+                <ng-template #visitor>
+                    <button mat-button routerLink="/auth/login">Login</button>
+                    <button mat-button routerLink="/auth/register">Register</button>
+                </ng-template>
+
             </div>
         </div>
         <div class="router">

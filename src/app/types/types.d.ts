@@ -1,5 +1,25 @@
 export namespace L2Group {
 
+
+    type Tokens = {
+        access: {
+            token: string;
+            expires: string;
+        };
+        refresh: {
+            token: string;
+            expires: string;
+        }
+    }
+
+    type User = {
+        email: string;
+        id: string;
+        name: string;
+        role: string;
+    }
+
+
     type ServerRate = {
         xp: number;
         sp: number;
@@ -19,6 +39,7 @@ export namespace L2Group {
 
     type Server = {
         name: string;
+        votes: number;
         ip: string;
         version: string;
         location: string;

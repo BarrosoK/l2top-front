@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: './modules/admin/admin.module#AdminModule'
       },
       {
+        path: 'servers',
+        loadChildren: './modules/servers/servers.module#ServersModule'
+      },
+      {
         path: '**',
         redirectTo: 'home'
       }

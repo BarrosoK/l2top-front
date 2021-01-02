@@ -1,6 +1,8 @@
-export class SaveToken {
-  static readonly type = '[Auth] Save Token';
-  constructor(public token: string) {
+import {Backend} from "@app/types/api";
+
+export class Login {
+  static readonly type = '[Auth] Login';
+  constructor(public payload: Backend.Register) {
   }
 }
 

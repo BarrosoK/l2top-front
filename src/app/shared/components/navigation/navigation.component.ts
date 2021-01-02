@@ -8,6 +8,7 @@ import {BreakpointObserver, Breakpoints, BreakpointState} from '@angular/cdk/lay
 import {first, map} from 'rxjs/operators';
 import {Select, Store} from '@ngxs/store';
 import {AuthState} from '../../../core/store/states/auth.state';
+import {L2Group} from "@app/types/types";
 
 @Component({
   selector: 'app-navigation',
@@ -26,8 +27,7 @@ export class NavigationComponent implements OnInit {
   public sideNavState = true;
   public linkText = true;
 
-  @Select(AuthState.tokenSelect) token$: Observable<string>;
-  @Select(AuthState.usernameSelect) username$: Observable<string>;
+  @Select(AuthState.isLogged) isLogged$: Observable<boolean>;
 
   public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -63,8 +63,8 @@ export class NavigationComponent implements OnInit {
 
   constructor(private router: Router, private breakpointObserver: BreakpointObserver, private store: Store) {
 
-    this.token$.subscribe(token => {
-      if (token === undefined) {
+    this.isLogged$.subscribe(logged => {
+      if (!logged) {
         this.constructNavigation(false, false);
       } else {
         this.constructNavigation(true, false);

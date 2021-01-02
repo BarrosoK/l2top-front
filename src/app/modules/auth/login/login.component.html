@@ -11,15 +11,30 @@
 
     <div class="login-form" (keydown.enter)="login()">
 
-      <label for="inputUsername" class="col-form-label">Username</label>
-      <div>
-        <input [(ngModel)]="username" autofocus mdbInput type="text" class="form-control login-input" id="inputUsername" placeholder="Email">
-      </div>
+      <div class="title">LOGIN</div>
 
-      <label for="inputPassword" class="col-form-label">Password</label>
-      <div>
-        <input [(ngModel)]="password" mdbInput type="password" class="form-control login-input" id="inputPassword" placeholder="Password">
-      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">Email is required</div>
+            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+          </div>
+        </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+            </div>
+          </div>
+
+      </form>
 
       <div  class="mt-4 login-button">
         <button mdbBtn type="button" rounded="true" mdbWavesEffect (click)="login()">Login</button>

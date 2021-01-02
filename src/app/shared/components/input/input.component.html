@@ -1,0 +1,27 @@
+<div *ngIf="formGroupName === undefined; then normal;else sub"></div>
+<ng-template #normal>
+    <div class="form-group" [formGroup]="formGroup">
+        <label>{{title}}</label>
+        <input type="text"
+               [formControlName]="controlName"
+               class="form-control"
+               [ngClass]="{ 'is-invalid':  f[controlName].touched && f[controlName].errors }"/>
+        <div *ngIf=" f[controlName].errors" class="invalid-feedback">
+            <div *ngIf="f[controlName].errors.required">{{title}} is required</div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #sub>
+    <div class="form-group" [formGroup]="formGroup">
+        <form [formGroupName]="formGroupName">
+            <label>{{title}}</label>
+            <input type="text"
+                   [formControlName]="controlName"
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid':  f.touched && f.errors }"/>
+            <div *ngIf=" f.errors" class="invalid-feedback">
+                <div *ngIf="f.errors['required']">{{title}} is required</div>
+            </div>
+        </form>
+    </div>
+</ng-template>
