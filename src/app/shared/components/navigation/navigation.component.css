@@ -4,13 +4,15 @@
   align-items: center;
   height: 100%;
   background-color: #e8e5eb; }
+  .content .router {
+    overflow-y: scroll; }
   .content .navigationBar {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #a21842;
+    background: linear-gradient(0.25turn, #a21842, #73102f);
     height: 50px;
-    width: 70%; }
+    width: 100%; }
     .content .navigationBar .header {
       display: flex;
       align-items: center;

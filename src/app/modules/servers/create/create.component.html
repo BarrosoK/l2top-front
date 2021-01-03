@@ -1,9 +1,43 @@
-<form [formGroup]="serverForm" (ngSubmit)="create()">
+<form [formGroup]="serverForm" (ngSubmit)="create()" class="serverForm">
 
-    <app-input [formGroup]="serverForm" title="name" controlName="name" ></app-input>
-    <app-input [formGroup]="serverForm" title="website" controlName="website" ></app-input>
-    <app-input formGroupName="information" [formGroup]="serverForm" title="description" controlName="description" ></app-input>
 
-    <button mdbBtn type="button" rounded="true" mdbWavesEffect (click)="create()">Add server</button>
+    <div class="colOne">
 
+        <div class="basic">
+            <app-form-wrapper title="Server Information">
+                <app-input [formGroup]="serverForm" title="Name" controlName="name" ></app-input>
+                <app-input [formGroup]="serverForm" title="ip" controlName="ip" ></app-input>
+                <app-input [formGroup]="serverForm" title="version" controlName="version" ></app-input>
+                <app-input [formGroup]="serverForm" title="location" controlName="location" ></app-input>
+                <app-input [formGroup]="serverForm" title="website" controlName="website" ></app-input>
+            </app-form-wrapper>
+        </div>
+
+
+        <div class="information">
+            <app-form-wrapper title="More Information">
+                <app-input formGroupName="information" [formGroup]="serverForm" title="description" controlName="description" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="promotionLink" controlName="promotionLink" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="safeEnchant" controlName="safeEnchant" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="maxEnchant" controlName="maxEnchant" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="enchantRate" controlName="enchantRate" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="blessedEnchantRate" controlName="blessedEnchantRate" ></app-input>
+                <app-input formGroupName="information" [formGroup]="serverForm" title="hasCustom" controlName="hasCustom" ></app-input>
+            </app-form-wrapper>
+        </div>
+
+
+    </div>
+
+    <div class="colTwo">
+        <div class="rates">
+            <app-form-wrapper title="Rates">
+                <app-input formGroupName="rates" [formGroup]="serverForm" title="xp" controlName="xp" ></app-input>
+                <app-input formGroupName="rates" [formGroup]="serverForm" title="sp" controlName="sp" ></app-input>
+                <app-input formGroupName="rates" [formGroup]="serverForm" title="drop" controlName="drop" ></app-input>
+                <app-input formGroupName="rates" [formGroup]="serverForm" title="adena" controlName="adena" ></app-input>
+            </app-form-wrapper>
+        </div>
+    </div>
 </form>
+<button mdbBtn type="button" rounded="true" mdbWavesEffect (click)="create()">Add server</button>

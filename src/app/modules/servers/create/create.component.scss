@@ -1,0 +1,43 @@
+.serverForm {
+  padding: 15px;
+  display: flex;
+  width: 100%;
+
+  div {
+    padding: 10px;
+  }
+
+  .colOne {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    .basic {
+      width: 100%;
+    }
+
+    .information {
+      width: 100%;
+    }
+  }
+
+  .colTwo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    div {
+      margin-bottom: 10px;
+    }
+
+    .rates {
+      width: 100%;
+    }
+  }
+
+
+}

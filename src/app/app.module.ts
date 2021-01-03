@@ -19,6 +19,7 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import {JwtInterceptor} from '@app/core/interceptors/jwt.interceptor';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import {ServersModule} from "@app/modules/servers/servers.module";
+import {ServerState} from "@app/core/store/states/server.state";
 
 const config: SocketIoConfig = { url: 'http://167.71.54.249:4242', options: {} };
 
@@ -40,7 +41,7 @@ const config: SocketIoConfig = { url: 'http://167.71.54.249:4242', options: {} }
     HttpClientModule,
     FlexLayoutModule,
     ToastrModule.forRoot(),
-    NgxsModule.forRoot([AuthState],
+    NgxsModule.forRoot([AuthState, ServerState],
       {developmentMode: true}),
     NgxsStoragePluginModule.forRoot({
       key: 'auth'

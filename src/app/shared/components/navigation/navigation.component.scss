@@ -12,14 +12,18 @@ $navigationWidth: 70%;
   height: 100%;
   background-color: $light-gray;
 
+  .router {
+    overflow-y: scroll;
+  }
+
   .navigationBar {
     display: flex;
     justify-content: center;
     align-items: center;
 
-    background-color: $red;
+    background: linear-gradient(0.25turn, $red, $dark-red);
     height: 50px;
-    width: $navigationWidth;
+    width: 100%;
 
     .header {
       display: flex;

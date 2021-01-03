@@ -10,10 +10,11 @@ import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ServerCardComponent } from './components/server-card/server-card.component';
 import { InputComponent } from './components/input/input.component';
+import { FormWrapperComponent } from './components/form-wrapper/form-wrapper.component';
 
 
 @NgModule({
-  declarations: [NavigationComponent, ServerCardComponent, InputComponent],
+  declarations: [NavigationComponent, ServerCardComponent, InputComponent, FormWrapperComponent],
   providers: [{provide: OWL_DATE_TIME_LOCALE, useValue: 'fr'}],
     imports: [
         CommonModule,
@@ -37,6 +38,7 @@ import { InputComponent } from './components/input/input.component';
         OwlNativeDateTimeModule,
         ServerCardComponent,
         InputComponent,
+        FormWrapperComponent,
     ]
 })
 export class SharedModule {
